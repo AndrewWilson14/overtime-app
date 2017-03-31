@@ -39,3 +39,5 @@ gem 'administrate', github: 'greetpoint/administrate', branch: 'rails5'
 gem 'bourbon'
 gem 'pundit', '~> 1.1'
 gem 'twilio-ruby', '~> 4.13'
+gem 'dotenv-rails', :groups => [:development, :test]
+
