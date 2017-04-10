@@ -1,7 +1,8 @@
 namespace :notification do
   desc "Sends SMS notification to employees asking them to log over time."
   task sms: :environment do
-    # 1. Schedule to run at Sunday at 5pm
+    if Time.now.sunday?
+      # 1. Schedule to run at Sunday at 5pm
     # 2. Iterate over all employees
     # 3. Skip Admin Users
     # 4. Send a message that has instructions and a link to log time
@@ -13,16 +14,17 @@ namespace :notification do
     # No spaces or dashes
     # Exactly 10 characters
     # All characters have to be a number
+    end
   end
 
-  desc "Sends mail notification to managers (admin users) each day to inform of pending overtime requests."
+  desc "Sends mail notification to managers (admin users) each day to inform of pending overtime requests"
   task manager_email: :environment do
     submitted_posts = Post.submitted
     admin_users = AdminUser.all
 
     if submitted_posts.count > 0
       admin_users.each do |admin|
-        ManagerMailer.email(admin).deliver_later
+        ManagerMailer.email(admin).deliver_now
       end
     end
   end
